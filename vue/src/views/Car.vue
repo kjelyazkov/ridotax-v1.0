@@ -1,9 +1,10 @@
 <template>
-  <div>Car</div>
+  <div>Car: {{ id }}</div>
 </template>
 
 <script>
 export default {
   name: "Car",
+  props: ["id"],
 };
 </script>

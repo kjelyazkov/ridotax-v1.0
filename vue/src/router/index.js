@@ -8,30 +8,37 @@ import Register from "../views/auth/Register.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home,
+    meta: { requiresLogin: true }
   },
   {
     path: "/car/:id",
     name: "car",
     component: Car,
-    props: true
+    props: true,
+    meta: { requiresLogin: true }
+
   },
   {
     path: "/fee/:id",
     name: "fee",
     component: Fee,
-    props: true
+    props: true,
+    meta: { requiresLogin: true }
+
   },
   {
     path: "/login",
     name: "login",
     component: Login,
+
   },
   {
     path: "/register",
     name: "register",
     component: Register,
+
   },
 ];
 
@@ -39,5 +46,15 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const vuex = JSON.parse(localStorage.getItem("vuex"));
+
+  if (to.matched.some(record => record.meta.requiresLogin) && (vuex === null || vuex.auth.token === null)) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
+})
 
 export default router;
