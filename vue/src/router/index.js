@@ -13,7 +13,7 @@ const routes = [
     meta: { requiresLogin: true }
   },
   {
-    path: "/car/:id",
+    path: "/cars/:id",
     name: "car",
     component: Car,
     props: true,
@@ -21,7 +21,7 @@ const routes = [
 
   },
   {
-    path: "/fee/:id",
+    path: "/fees/:id",
     name: "fee",
     component: Fee,
     props: true,
@@ -32,13 +32,13 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
-
+    meta: { auth: true }
   },
   {
     path: "/register",
     name: "register",
     component: Register,
-
+    meta: { auth: true }
   },
 ];
 
@@ -50,11 +50,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const vuex = JSON.parse(localStorage.getItem("vuex"));
 
+  // Prevvent access to routes with meta: {requiresLogin: true}
   if (to.matched.some(record => record.meta.requiresLogin) && (vuex === null || vuex.auth.token === null)) {
     next({ name: "login" });
-  } else {
-    next();
   }
+
+  // Prevvent access to routes with meta: {auth: true}
+  if (to.matched.some(record => record.meta.auth) && vuex !== null && vuex.auth.token !== null) {
+    next(from.fullPath);
+  }
+
+  next();
 })
 
 export default router;
