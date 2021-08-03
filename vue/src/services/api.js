@@ -30,5 +30,10 @@ export default {
   profile() {
     attachToken();
     return instance.get("/api/profile");
+  },
+
+  getCars() {
+    attachToken();
+    return instance.get("/api/cars");
   }
 }
