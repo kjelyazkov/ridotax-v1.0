@@ -9,10 +9,12 @@ import mitt from "mitt";
 
 // Components
 import AddCarModal from "./components//modals/AddCarModal.vue";
+import EditCarModal from "./components//modals/EditCarModal.vue";
 
 const app = createApp(App)
 
 app.component("add-car-modal", AddCarModal);
+app.component("edit-car-modal", EditCarModal);
 
 app.provide('mitt', mitt());
 

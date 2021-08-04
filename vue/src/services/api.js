@@ -39,5 +39,14 @@ export default {
   storeCar(car) {
     attachToken();
     return instance.post("/api/cars", car);
+  },
+  updateCar(car) {
+    attachToken();
+    return instance.put(`/api/cars/${car.car_id}`, {
+      color: car.color,
+      name: car.name,
+      model: car.model,
+      number: car.number,
+    });
   }
 }

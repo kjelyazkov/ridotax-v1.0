@@ -16,4 +16,5 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/cars', [CarController::class, 'list']);
     Route::post('/cars', [CarController::class, 'store']);
+    Route::put('/cars/{car}', [CarController::class, 'update']);
 });
