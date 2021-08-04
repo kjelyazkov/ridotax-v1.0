@@ -2,17 +2,27 @@
   <div>
     <the-top />
     <div
-      class="w-8 h-8 bg-white/10 grid place-content-center m-4"
+      class="
+        w-10
+        h-10
+        bg-white/10
+        grid
+        place-content-center
+        m-8
+        rounded-sm
+        cursor-pointer
+      "
       @click="goBack"
     >
       <i class="fas fa-arrow-left"></i>
     </div>
-    <div>
-      <p>Id: {{ car.id }}</p>
-      <p>Name: {{ car.name }}</p>
-      <p>Model: {{ car.model }}</p>
-      <p>Number: {{ car.number }}</p>
-      <p>Color: {{ car.color }}</p>
+    <div class="pl-24 pr-4 uppercase flex flex-col gap-4">
+      <div>
+        <h1 class="text-3xl font-bold">{{ car.name }}</h1>
+        <h2 class="text-2xl text-gray-400">{{ car.model }}</h2>
+      </div>
+      <h2 class="text-4xl font-bold text-gray-700">{{ car.number }}</h2>
+      <div class="w-full h-4 rounded-full" :class="`bg-${car.color}-400`"></div>
     </div>
   </div>
 </template>
@@ -26,10 +36,10 @@ export default {
   name: "Car",
   components: { TheTop },
   props: ["id"],
-  setup() {
+  setup(props) {
     const store = useStore();
     const router = useRouter();
-    const car = computed(() => store.getters["cars/showOne"]);
+    const car = computed(() => store.getters["cars/showOne"](props.id));
 
     function goBack() {
       router.push({ name: "home" });

@@ -6,10 +6,30 @@
       >RIDOTAX</router-link
     >
     <div class="flex gap-2">
-      <div class="w-10 h-10 grid place-content-center bg-white/10 rounded-sm">
+      <div
+        class="
+          w-10
+          h-10
+          grid
+          place-content-center
+          bg-white/10
+          rounded-sm
+          cursor-pointer
+        "
+      >
         <i class="fas fa-cog"></i>
       </div>
-      <div class="w-10 h-10 grid place-content-center bg-white/10 rounded-sm">
+      <div
+        class="
+          w-10
+          h-10
+          grid
+          place-content-center
+          bg-white/10
+          rounded-sm
+          cursor-pointer
+        "
+      >
         <i class="fas fa-bell"></i>
       </div>
     </div>

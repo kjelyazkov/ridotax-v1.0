@@ -13,7 +13,7 @@ class CarController extends Controller
     }
     public function store(StoreCarRequest $request)
     {
-        $newCar = auth()->user()->cars()->create($request->only('name', 'model', 'number'));
+        $newCar = auth()->user()->cars()->create($request->only('name', 'model', 'number', 'color'));
 
         return response()->json(new CarResource($newCar));
     }

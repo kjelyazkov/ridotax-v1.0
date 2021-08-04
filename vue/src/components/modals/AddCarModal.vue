@@ -20,13 +20,28 @@
         <input type="text" name="number" v-model="number" />
       </div>
       <div class="field">
-        <label for="color">Color</label>
-        <select name="color" id="color" v-model="color" required>
-          <option value="none" disabled>Select One</option>
-          <option value="red">red</option>
-          <option value="blue">blue</option>
-          <option value="green">green</option>
-        </select>
+        <label for="color">Choose:</label>
+        <div class="flex gap-2 p-2">
+          <div v-for="(avColor, index) in availableColors" :key="index">
+            <label
+              for="color"
+              class="w-8 h-8 block"
+              :class="[
+                `bg-${avColor}-400`,
+                avColor == color[0] ? 'ring ring-white' : '',
+              ]"
+              @click="$event.target.firstChild.click()"
+            >
+              <input
+                type="checkbox"
+                v-model="color"
+                :value="avColor"
+                @change="checkSelectedColor"
+                class="hidden"
+              />
+            </label>
+          </div>
+        </div>
       </div>
       <div class="field">
         <button
@@ -34,7 +49,7 @@
           :disabled="!canSubmit"
           :class="canSubmit ? '!bg-indigo-700 !text-white' : ''"
         >
-          login
+          add
         </button>
       </div>
     </form>
@@ -51,7 +66,8 @@ export default {
     const store = useStore();
 
     // Handle Form
-    const color = ref("none");
+    const availableColors = ref(["red", "green", "blue", "indigo", "yellow"]);
+    const color = ref([]);
     const name = ref("");
     const model = ref("");
     const number = ref("");
@@ -67,9 +83,16 @@ export default {
         return false;
       }
     });
+
+    function checkSelectedColor() {
+      if (color.value.length > 1) {
+        color.value.shift();
+      }
+    }
+
     async function submit() {
       await store.dispatch("cars/store", {
-        color: color.value,
+        color: color.value[0],
         name: name.value,
         model: model.value,
         number: number.value,
@@ -84,7 +107,9 @@ export default {
     }
 
     return {
+      availableColors,
       color,
+      checkSelectedColor,
       name,
       model,
       number,

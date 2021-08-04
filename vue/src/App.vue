@@ -1,6 +1,12 @@
 <template>
-  <div>
+  <div class="max-w-screen-sm mx-auto">
     <router-view />
+
+    <div class="bg-blue-400"></div>
+    <div class="bg-green-400"></div>
+    <div class="bg-red-400"></div>
+    <div class="bg-indigo-400"></div>
+    <div class="bg-yellow-400"></div>
   </div>
 </template>
 

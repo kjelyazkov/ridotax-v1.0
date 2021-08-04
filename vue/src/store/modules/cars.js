@@ -1,5 +1,4 @@
 import api from "./../../services/api";
-import { useRoute } from "vue-router";
 export default {
   namespaced: true,
   state: {
@@ -28,8 +27,8 @@ export default {
     }
   },
   getters: {
-    showOne(state) {
-      return state.cars.find(car => car.id == useRoute().params.id);
+    showOne: (state) => (id) => {
+      return state.cars.find(car => car.id == id);
     }
   }
 }
